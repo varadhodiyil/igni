@@ -1,0 +1,43 @@
+<div class="row">
+    <form class="" class="row col-md-12">
+        <div class="form-group col-md-4 mb-2">
+          <label for="staticEmail2" >Device Group</label>
+          <select class="pull-right form-control col-md-8" [(ngModel)]="vehicle.vehicle_number" name="vehicle_number" (change)="set_vehicle_number()">
+            <option  *ngFor="let r of vehicles" [ngValue]="r">{{r}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="daterange" class="form-check-inline" >Date Range</label>
+          <input class="form-control col-md-8" id="daterange" placeholder="Password">
+        </div>
+        <div class="col-md-4">
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" [(ngModel)]="vehicle.report_type" name="report_type" (change)="set_report_type()" type="radio" id="inlineCheckbox1" value="Event Detail">
+              <label class="form-check-label"  for="inlineCheckbox1">Distance Report</label>
+            </div>
+        </div>
+      </form>
+  </div>
+  
+  <table id="table_id" class="display">
+      <thead>
+          <tr>
+              <th>#</th>
+              <th>Vechicle Description</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Status</th>
+              <th>Lat/Lon</th>
+              <th>Speed Km/hr</th>
+              <th>Altitude metres</th>
+              <th>Odometer km</th>
+              <th>Address</th>
+              <th>Fuel Volume</th>
+              <th>Temperature</th>
+              <th>AC</th>
+              <th>Fuel Difference</th>
+  
+          </tr>
+      </thead>
+      
+  </table>

@@ -1,0 +1,38 @@
+<div class="row">
+    <form class="search_fields col-md-12" name="searchForm" #searchForm>
+      <div class="row">
+        <div class="col-xs-12 col-md-4">
+          <label class="weightNormal ng-binding">GeoRoute Details</label>
+          <input ng-model="searchData.s_idName" class="form-control ng-pristine ng-valid ng-empty ng-touched" name="" placeholder="Enter ID,Name" style="" type="text">
+        </div>
+  
+        <div class="col-xs-12 col-md-2 " [hidden]="isGeoPath == false">
+          <label class="weightNormal ng-binding">GeoRoute Type</label>
+          <select class="form-control ng-pristine ng-untouched ng-valid ng-empty" ng-model="searchData.s_geozoneType">
+            <option value="">All</option>
+            <!-- ngRepeat: status in options.DropdownValues.z_zone_type --><option ng-repeat="status in options.DropdownValues.z_zone_type" value="SWEPT_POINT_RADIUS" class="ng-binding ng-scope" style="">GeoPath</option><!-- end ngRepeat: status in options.DropdownValues.z_zone_type -->
+          </select>
+        </div>
+        
+        <div class="col-xs-12 col-md-2">
+          <label class="weightNormal hidden-xs">&nbsp;</label>
+          <button class="btn btn-primary"  style="color: #fff;" [disabled]="searchForm.$pristine || searchForm.$invalid" disabled="disabled"><i class="material-icons">search</i> Search</button>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      </form>
+</div>
+<div class="row my-2">
+    <table id="table_id"  style="width: 100%">
+        <thead>
+            <tr>
+                <th>GeoRoute ID </th>
+                <th>Name </th>
+                <th>Arrival Zone</th>
+                <th>Departure Zone</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        
+    </table>
+</div>

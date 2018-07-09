@@ -1,0 +1,25 @@
+<div class="row">
+
+  <div class="col-md-2"></div>
+  <div class="col-md-8 form-inline" >
+    <label for="rangepicker">Date Range : </label>
+      <input id="rangepicker" name="rangepicker" onkeydown="return false" class="form-control col-md-8" type="text"
+        required/>
+  </div>
+  <div class="col-md-2">
+    <label  for="case">Select Case</label>
+    <div class="form-group col-sm-6 pull-right ">
+      <select class="form-control" [(ngModel)]="case_id" id="case" (change)="show_filtered_pins()">
+        <option selected="" value="undefined" disabled>--Select Date--</option>
+        <option *ngFor="let case of cases" [ngValue]="case.id">
+          {{case.first_name + ' ' +case.last_name }}
+        </option>
+      </select>
+    </div>
+
+  </div>
+
+</div>
+<div class="row" style="height: 69vh;" >
+  <div id="map"  class="col-md-12"></div>
+</div>

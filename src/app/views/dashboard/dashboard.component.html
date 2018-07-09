@@ -1,0 +1,78 @@
+<div class="row table_header_bg_color ">
+  <div class="col-md-1">
+    Vehicle Detail Expiry / Motion
+  </div>
+  <div class="col-md-1">
+    Location
+  </div>
+  <div class="col-md-1">
+    Last Seen
+  </div>
+  <div class="col-md-2">
+    Speed
+  </div>
+  <div class="col-md-2">
+    Fuel
+  </div>
+  <div class="col-md-1">
+    Ignition
+  </div>
+  <div class="col-md-1">
+    A/C
+  </div>
+  <div class="col-md-1">
+    Door
+  </div>
+  <div class="col-md-1">
+    Temperature
+  </div>
+</div>
+<div class="tbl-body">
+  <div class="row" style="padding-top: 10px;">
+  <div class="col-md-1">
+    <img src="/assets/img/forklift_yellow_h7.png">
+    <label title="Driver Signed IN" class="nameLabel person_name" >
+      <i class="material-icons" style="font-size:21px;">person_pin</i> Gangaraju
+    </label>
+    <label title="Device Subription ends on 2018/08/25" class="colorTheme bgColorTheme3 time-lapse">
+      <i class="material-icons" style="font-size:21px;">timelapse</i> 2018/08/25 &nbsp; 
+    </label>
+    <label title="Vehicle is Stopped" class="nameLabel ng-binding device-status-stop"  >Stop</label>
+  </div>
+  <div class="col-md-1">
+    <div class="row">
+      <div class="col-md-6">
+          <label >Hosur ,India</label>
+      </div>
+      <div class="col-md-6">
+          <i class="material-icons">map</i>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-1">
+      2018/07/09 14:15:22
+  </div>
+  <div class="col-md-2">
+ 
+  </div>
+  <div class="col-md-2">
+ 
+  </div>
+  <div class="col-md-1">
+      <img title="Ignition (Engine) OFF" class="dashboard-sensors"  src="/assets/img/dashboard_icon_ignition_off.svg">
+      <!-- <img title="Ignition (Engine) OFF" class="dashboard-sensors ng-hide" ngShow="data.Ignition =='-'" src="/assets/img/dashboard_icon_ignition_off.svg"> -->
+  </div>
+  <div class="col-md-1">
+      <img title="A/C ON" class="dashboard-sensors" ng-show="data.AC == 'N'" src="/assets/img/dashboard_icon_ac_inactive.svg">
+      <!-- <img title="A/C ON" class="dashboard-sensors ng-hide" ng-show="data.AC == 'Y'" src="assets/img/dashboard_icon_ac_on.svg"> -->
+  </div>
+  <div class="col-md-1">
+      <img title="Door OPEN" class="dashboard-sensors ng-hide" ng-show="data.Door == 'Y'" src="/assets/img/dashboard_icon_door_open.svg">
+      <!-- <img title="Door CLOSED" class="dashboard-sensors" ng-show="data.Door == 'N' || data.Door == '-' || data.Door == ''" src="assets/img/dashboard_icon_door_inactive.svg"> -->
+  </div>
+  <div class="col-md-1">
+      <img title="Temperature" ng-show="data.Temeperature<-70" src="assets/img/dashboard_icon_temperature_inactive.svg" class="ng-hide" width="100%">
+      <!-- <img title="Temperature" ng-show="data.Temeperature>-70 &amp;&amp; data.Temeperature<25" src="/assets/img/dashboard_icon_temperature_cold.svg" class="" width="100%"> -->
+  </div>
+</div>
+</div>
