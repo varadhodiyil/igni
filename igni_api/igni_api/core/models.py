@@ -15,19 +15,25 @@ GENDER_CHOICES = (
 )
 
 # Create your models here.
+
+
 class Company(models.Model):
+    objects = models.Manager()
     id = models.AutoField(primary_key=True)
     is_active = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
-    org_name = models.CharField(max_length=100,unique=True)
+    org_name = models.CharField(max_length=100, unique=True)
     date_joined = models.DateTimeField(auto_now=True)
     logo = models.URLField()
+
     class Meta:
         db_table = 'company'
 
+
 class Users(AbstractUser):
+    objects = models.Manager()
     is_superuser = models.BooleanField(default=False)
-    company = models.ForeignKey(Company,on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
     is_verified = models.BooleanField(default=False)
     display_picture = models.URLField(default=None, null=True)
     forget_pass_code = models.CharField(max_length=40, null=True)
@@ -91,3 +97,36 @@ class Token(models.Model):
             Token.objects.filter(
                 user=id_, expires_at__lte=timezone.now()).delete()
         return exists, token
+
+
+class Device(models.Model):
+    objects = models.Manager()
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    owner = models.ForeignKey(Company)
+    date_joined = models.DateTimeField(auto_now=True)
+    driver_name = models.CharField(max_length=100)
+
+    class Meta:
+        unique_together = (('owner', 'name'))
+
+
+class DeviceLogs(models.Model):
+    AC_CHOICES = [('ON', 'ON'), ('OFF', 'OFF')]
+
+    objects = models.Manager()
+
+    id = models.AutoField(primary_key=True)
+    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    updated_at = models.DateTimeField()
+    status = models.CharField(max_length=20)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    speed = models.FloatField()
+    altitude = models.FloatField()
+    odometer = models.IntegerField()
+    address = models.TextField()
+    fuel_level = models.FloatField()
+    temperature = models.FloatField(null=True)
+    ac_status = models.CharField(max_length=3, choices=AC_CHOICES)
+    fuel_diff = models.FloatField(null=True)

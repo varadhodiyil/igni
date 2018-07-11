@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$',schema_view),
     url(r'^auth/',include('igni_api.auth.urls')),
+    url(r'',include('igni_api.core.urls')),
 ]

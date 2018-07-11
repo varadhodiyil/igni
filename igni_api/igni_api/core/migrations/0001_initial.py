@@ -34,8 +34,6 @@ class Migration(migrations.Migration):
                 ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
                 ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
                 ('is_verified', models.BooleanField(default=False)),
-                ('mobile_number', models.BigIntegerField(unique=True)),
-                ('gender', models.CharField(choices=[('male', 'male'), ('female', 'female'), ('Other', 'other')], max_length=6)),
                 ('display_picture', models.URLField(default=None, null=True)),
                 ('forget_pass_code', models.CharField(max_length=40, null=True)),
                 ('forget_pass_code_validity', models.DateTimeField(null=True)),
