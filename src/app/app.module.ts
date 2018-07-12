@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { HttpModule  } from '@angular/http';
 import { FormsModule } from '@angular/forms';
-
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -18,7 +17,8 @@ import { AppComponent } from './app.component';
 // Import containers
 import { DefaultLayoutComponent } from './containers';
 
-
+import { P404Component } from './views/error/404.component';
+import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { IgniserviceService } from './services/igniservice.service';
@@ -49,11 +49,12 @@ import { DeviceReportComponent } from './report/device-report/device-report.comp
 import { DistanceComponent } from './report/distance/distance.component';
 import { IgnitionComponent } from './report/ignition/ignition.component';
 import { AdminComponent } from './admin/admin.component';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
 @NgModule({
   imports: [
+    BrowserModule,
     HttpModule,
     FormsModule,
-    BrowserModule,
     AppRoutingModule,
     AppAsideModule,
     AppBreadcrumbModule.forRoot(),
@@ -68,8 +69,8 @@ import { AdminComponent } from './admin/admin.component';
   declarations: [
     AppComponent,
     ...APP_CONTAINERS,
-    // P404Component,
-    // P500Component,
+    P404Component,
+    P500Component,
     LoginComponent,
     RegisterComponent,
     VehicleComponent,

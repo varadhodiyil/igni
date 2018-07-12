@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Vehicle} from './vehicle';
+import {IgniserviceService} from '../../services/igniservice.service';
+import { Devices } from '../../mapping/device/devices';
+
 declare const $: any;
 declare const moment: any;
 @Component({
@@ -9,13 +12,17 @@ declare const moment: any;
 })
 export class VehicleReportComponent implements OnInit {
 
-  constructor() { }
+  constructor(private httpService: IgniserviceService) { }
   vehicle = new Vehicle();
   data_table = null;
   params = '';
-  vehicles = [1, 2, 3];
+  devices: Devices[];
   ngOnInit() {
     const self = this;
+
+    this.httpService.getDevices().subscribe(data => {
+      this.devices = data.result;
+    });
     $(document).ready(function () {
       $('#table_id').DataTable();
       $(function () {
@@ -29,7 +36,7 @@ export class VehicleReportComponent implements OnInit {
         });
       });
     });
-    // self.set_data(null);
+    self.set_data(null);
   }
   serialize_params(data) {
     return Object.keys(data).map(key => `${key}=${encodeURIComponent(data[key])}`).join('&');
@@ -42,7 +49,6 @@ export class VehicleReportComponent implements OnInit {
       // march and parse
       for (let i = querystrings.length - 1; i >= 0; i--) {
         pair = querystrings[i].split('=');
-        console.log(pair);
         if ( pair[0].length > 0 ) {
           params[d(pair[0])] = d(pair[1] || '');
         }
@@ -56,38 +62,51 @@ export class VehicleReportComponent implements OnInit {
     this.set_data(this.params);
   }
   set_vehicle_number() {
-    this.params = this.set_params('vehicle_number', this.vehicle.vehicle_number);
+    // this.params = this.set_params('vehicle_number', this.vehicle.vehicle_number);
     this.set_data(this.params);
   }
   set_data(params) {
+    const self = this;
+    let data_url = this.httpService.getBaseAPIDomain() + 'device/logs/?' + params;
+    if ( this.vehicle.vehicle_number !== undefined ) {
+      console.log(this.vehicle.vehicle_number , typeof(this.vehicle.vehicle_number), this.vehicle.vehicle_number !== undefined );
+      data_url = this.httpService.getBaseAPIDomain() + 'device/logs/' + this.vehicle.vehicle_number + '/?' + params;
+    }
     if (this.data_table !== null ) {
       this.data_table.destroy();
     }
       this.data_table = $('#table_id').DataTable( {
-      'ajax': 'backend/get_all_rr.php?' + params,
-      'scrollY': true,
-      'scrollX': true,
-      // "columns": [
-      //         { "data": "rr_date" },
-      //         { "data": "rr_number" },
-      //         { "data": "party" },
-      //         { "data": "no_of_pack" },
-      //         { "data": "station" },
-      //   { "data": "weight" },
-      //   { "data": "rr_amount" },
-      //         { "data": "expense" },
-      //   { "data": "other_charge" },
-      //   { "data": "cgst" },
-      //         { "data": "sgst" },
-      //         { "data": "igst" },
-      //         { "data": "total" },
-      //         { "data": "paid" },
-      //   { "data": "previous_balance" },
-      //   { "data": "grand_total" },
-      //         { "data": "dispatch" },
-      //   { "data": "remarks" },
-      //   { "data": "edit" }
-      // ],
+        ajax: {
+          dataSrc: 'result',
+      },
+      'sAjaxSource': data_url,
+      'fnServerData': function ( sSource, aoData, fnCallback, oSettings ) {
+        oSettings.jqXHR = $.ajax( {
+          'dataType': 'json',
+          'type': 'GET',
+          'url': sSource,
+          'data': aoData,
+          'success': fnCallback,
+          headers: {
+            'Authorization': self.httpService.getAuthorization()
+          },
+        } );
+      },
+      'columns': [
+            { 'data': 'id' },
+            { 'data': 'device_name' },
+            { 'data': 'updated_at' },
+            { 'data': 'latitude' },
+            { 'data': 'longitude' },
+            { 'data': 'speed' },
+            { 'data': 'altitude' },
+            { 'data': 'odometer' },
+            { 'data': 'address' },
+            { 'data': 'fuel_level' },
+            { 'data': 'temperature' },
+            { 'data': 'ac_status' },
+            { 'data': 'fuel_diff' },
+      ],
       'columnDefs': [ {
         'targets'  : 'no-sort',
         'orderable': false,

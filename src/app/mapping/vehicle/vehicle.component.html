@@ -1,3 +1,25 @@
-<p>
-  vehicle works!
-</p>
+<div class="row">
+
+  <div class="col-md-2"></div>
+  <div class="col-md-6 form-inline" >
+    <label for="rangepicker">Date Range : </label>
+      <input id="rangepicker" name="rangepicker"  class="form-control col-md-8" type="text"
+        required/>
+  </div>
+  <!-- <div class="col-md-4">
+    <label  for="case">Select Device</label>
+    <div class="form-group col-sm-6 pull-right ">
+      <select class="form-control"  id="device_id" [(ngModel)]="device_id" (change)="show_filtered_pins()">
+        <option selected="" value="undefined" disabled>--Select Device--</option>
+        <option *ngFor="let device of devices" [ngValue]="device.id">
+         {{device.name}}
+        </option>
+      </select>
+    </div>
+
+  </div> -->
+
+</div>
+<div class="row mt-2" style="height: 69vh;" >
+  <div id="map"  class="col-md-12"></div>
+</div>
