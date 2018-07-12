@@ -150,50 +150,49 @@ class DeviceLogsUpdateAPI(GenericAPIView):
 	parser_classes = (JSONParser, FormParser)
 
 
-	def put(self, request, log, *args, **kwargs):
-		user = request.user
-		result = dict()
-		if user.is_authenticated():
-			result['status'] = True
-			data = request.data
-			data['owner'] = user.company.id
-			instance = models.DeviceLogs.objects.filter(device__owner=user.company, id=log)
-			instance = get_object_or_404(instance)
-			s = self.get_serializer(instance, data=data)
-			if s.is_valid():
-				s.save()
-				result['status'] = True
-				return Response(result, status=status.HTTP_201_CREATED)
-			else:
-				result['status'] = False
-				result['errors'] = s.errors
-				return Response(result, status=status.HTTP_400_BAD_REQUEST)
-		else:
-			result['status'] = False
-			result['error'] = "Unauthorized"
-			return Response(result, status=status.HTTP_401_UNAUTHORIZED)
+	# def put(self, request, log, *args, **kwargs):
+	# 	user = request.user
+	# 	result = dict()
+	# 	if user.is_authenticated():
+	# 		result['status'] = True
+	# 		data = request.data
+	# 		data['owner'] = user.company.id
+	# 		instance = models.DeviceLogs.objects.filter(device__owner=user.company, id=log)
+	# 		instance = get_object_or_404(instance)
+	# 		s = self.get_serializer(instance, data=data)
+	# 		if s.is_valid():
+	# 			s.save()
+	# 			result['status'] = True
+	# 			return Response(result, status=status.HTTP_201_CREATED)
+	# 		else:
+	# 			result['status'] = False
+	# 			result['errors'] = s.errors
+	# 			return Response(result, status=status.HTTP_400_BAD_REQUEST)
+	# 	else:
+	# 		result['status'] = False
+	# 		result['error'] = "Unauthorized"
+	# 		return Response(result, status=status.HTTP_401_UNAUTHORIZED)
 
-	def delete(self, request, device, *args, **kwargs):
-		user = request.user
-		result = dict()
-		if user.is_authenticated():
-			result['status'] = True
-			data = models.Device.objects.filter(device__owner=user.company, id=device).delete()
-			result['result'] = data
-			return Response(result)
-		else:
-			result['status'] = False
-			result['error'] = "Unauthorized"
-			return Response(result, status=status.HTTP_401_UNAUTHORIZED)
+	# def delete(self, request, log, *args, **kwargs):
+	# 	user = request.user
+	# 	result = dict()
+	# 	if user.is_authenticated():
+	# 		result['status'] = True
+	# 		data = models.DeviceLogs.objects.filter(device__owner=user.company, id=log).delete()
+	# 		result['result'] = data
+	# 		return Response(result)
+	# 	else:
+	# 		result['status'] = False
+	# 		result['error'] = "Unauthorized"
+	# 		return Response(result, status=status.HTTP_401_UNAUTHORIZED)
 
 	def get(self, request, device, *args, **kwargs):
 		user = request.user
 		result = dict()
 		if user.is_authenticated():
 			result['status'] = True
-			data = models.Device.objects.filter(device__owner=user.company, id=device)
-			data = get_object_or_404(data)
-			result['result'] = self.get_serializer(data).data
+			data = models.DeviceLogs.objects.filter(device__owner=user.company, device=device)
+			result['result'] = self.get_serializer(data,many=True).data
 			return Response(result)
 		else:
 			result['status'] = False

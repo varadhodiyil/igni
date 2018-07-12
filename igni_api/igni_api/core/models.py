@@ -7,7 +7,7 @@ from hashlib import sha1
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
-
+from datetime import  timedelta
 GENDER_CHOICES = (
     ('male', 'male'),
     ('female', 'female'),
@@ -106,14 +106,21 @@ class Device(models.Model):
     owner = models.ForeignKey(Company)
     date_joined = models.DateTimeField(auto_now=True)
     driver_name = models.CharField(max_length=100)
+    subscription_ends = models.DateTimeField(editable=False)
+
+    def save(self):
+        d = timedelta(years=1)
+        self.subscription_ends = timezone.now() + d
+        super(Device, self).save()
+
 
     class Meta:
         unique_together = (('owner', 'name'))
 
 
 class DeviceLogs(models.Model):
-    AC_CHOICES = [('ON', 'ON'), ('OFF', 'OFF')]
-
+    AC_CHOICES = [('on', 'on'), ('off', 'off')]
+    DOOR_CHOICES = [('Y',"Yes"), ('N','No')]
     objects = models.Manager()
 
     id = models.AutoField(primary_key=True)
@@ -130,3 +137,5 @@ class DeviceLogs(models.Model):
     temperature = models.FloatField(null=True)
     ac_status = models.CharField(max_length=3, choices=AC_CHOICES)
     fuel_diff = models.FloatField(null=True)
+    ignition_status = models.CharField(max_length=3,choices=AC_CHOICES)
+    door_status = models.CharField(max_length=3,choices=DOOR_CHOICES)
