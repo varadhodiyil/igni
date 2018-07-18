@@ -43,5 +43,10 @@ export class IgniserviceService {
         return response.json();
     });
   }
+  public postLogin(data: any) {
+    return this.http.post(this.config.Login , data).map((response: Response) => {
+      return response.json();
+  });
+  }
 
 }

@@ -1,4 +1,4 @@
-<div class="row table_header_bg_color ">
+<div class="row table_header_bg_color d-none d-md-flex">
   <div class="col-md-1">
     Vehicle Detail Expiry / Motion
   </div>
@@ -28,7 +28,7 @@
   </div>
 </div>
 <div class="tbl-body">
-  <div class="row" style="padding-top: 10px;" *ngFor="let dresult of dashboardResults">
+  <div class="row" style="padding-top: 10px;" *ngFor="let dresult of dashboardResults;let i = index;" [ngClass]="{'grey':i % 2 ==0}">
   <div class="col-md-1">
     <img src="/assets/img/forklift_yellow_h7.png">
     <label title="Driver Signed IN" class="nameLabel person_name" >
