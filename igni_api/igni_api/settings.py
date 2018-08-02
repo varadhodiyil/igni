@@ -33,7 +33,7 @@ if ISDEV:
 	mysql_host = 'localhost'
 else:
 	mysql_user = 'root'
-	mysql_password = 'dropme123!applewindows'
+	mysql_password = 'password'
 	mysql_host = '127.0.0.1'
 
 
