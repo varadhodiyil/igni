@@ -7,5 +7,8 @@ urlpatterns = [
     url(r'^device/logs/$' , views.DeviceLogsAPI.as_view()),
     url(r'^device/logs/(?P<device>\d)/$' , views.DeviceLogsUpdateAPI.as_view()),
     url(r'^dashboard/$' , views.Dashboard.as_view()),
-    url(r'^report/vehicle/$' , views.VehicleReportAPI.as_view())
+    url(r'^report/vehicle/$' , views.VehicleReportAPI.as_view()),
+    url(r'^report/distance/$' , views.DistanceReport.as_view()),
+    url(r'^report/ignition/$' , views.IgnitionReport.as_view())
 ]
+
